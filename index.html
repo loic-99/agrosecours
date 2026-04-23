@@ -1,0 +1,2782 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Agro-Secours propose des farines, poudres et graines naturelles d'Afrique de l'Ouest, avec commande par WhatsApp ou paiement en ligne.">
+<meta name="theme-color" content="#b8ff3b">
+<title>Agro-Secours | Produits naturels d'Afrique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #ffffff;
+  --cream-strong: #fbfff5;
+  --sand: #edf8dd;
+  --earth: #16311a;
+  --earth-soft: #3e5f42;
+  --gold: #b8ff3b;
+  --gold-soft: rgba(184, 255, 59, 0.18);
+  --sage: #72b81f;
+  --rust: #b24a2c;
+  --ink: #132114;
+  --muted: #607360;
+  --border: rgba(22, 49, 26, 0.12);
+  --shadow: 0 18px 48px rgba(22, 49, 26, 0.12);
+  --shadow-soft: 0 12px 32px rgba(22, 49, 26, 0.08);
+  --radius-lg: 28px;
+  --radius-md: 20px;
+  --radius-sm: 14px;
+  --container: 1180px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  color: var(--earth);
+  background:
+    radial-gradient(circle at top left, rgba(184, 255, 59, 0.16), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f7ffef 100%);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -44px;
+  left: 16px;
+  z-index: 1000;
+  background: var(--earth);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(184, 255, 59, 0.55);
+  outline-offset: 2px;
+}
+
+.container {
+  width: min(calc(100% - 32px), var(--container));
+  margin: 0 auto;
+}
+
+.section {
+  padding: 88px 0;
+}
+
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(114, 184, 31, 0.1);
+  color: var(--sage);
+  letter-spacing: 0.12em;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.section-title {
+  margin: 14px 0 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+}
+
+.section-title em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.section-copy {
+  max-width: 440px;
+  color: var(--muted);
+}
+
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--earth);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+  background: #a6eb31;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--earth);
+  border: 1px solid rgba(22, 49, 26, 0.14);
+}
+
+.btn-secondary:hover {
+  border-color: var(--earth);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(22, 49, 26, 0.08);
+}
+
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at center, rgba(184, 255, 59, 0.18), transparent 30%),
+    linear-gradient(145deg, #173218 0%, #0e1d0f 100%);
+  color: #f7fff0;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-shell {
+  text-align: center;
+}
+
+.loader-mark {
+  margin-bottom: 10px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(255, 249, 240, 0.72);
+}
+
+.loader-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  letter-spacing: 0.06em;
+}
+
+.loader-bar {
+  width: 180px;
+  height: 3px;
+  margin: 18px auto 0;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.loader-bar::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: loaderSweep 1.2s linear infinite;
+}
+
+@keyframes loaderSweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.88);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.site-header.scrolled {
+  border-color: rgba(22, 49, 26, 0.08);
+  box-shadow: 0 12px 30px rgba(22, 49, 26, 0.08);
+}
+
+.site-nav {
+  width: min(calc(100% - 32px), var(--container));
+  margin: 0 auto;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  text-decoration: none;
+  color: var(--earth);
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.brand-title span {
+  color: var(--gold);
+}
+
+.brand-subtitle {
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--earth-soft);
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: var(--earth);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn,
+.cart-button {
+  border: 0;
+  border-radius: 999px;
+  min-height: 48px;
+}
+
+.cart-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  background: var(--gold);
+  color: var(--earth);
+  font-weight: 700;
+  box-shadow: var(--shadow-soft);
+}
+
+.cart-button:hover {
+  background: #a6eb31;
+}
+
+.cart-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--earth);
+  font-size: 0.78rem;
+}
+
+.icon-btn {
+  display: none;
+  width: 48px;
+  background: rgba(22, 49, 26, 0.08);
+  color: var(--earth);
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hero {
+  position: relative;
+  padding: 40px 0 36px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 26px 0 auto;
+  height: 520px;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(114, 184, 31, 0.16), transparent 24%),
+    radial-gradient(circle at 78% 32%, rgba(184, 255, 59, 0.18), transparent 26%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.hero-copy {
+  max-width: 760px;
+}
+
+.hero-copy h1 {
+  margin: 18px 0 20px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3.1rem, 7.2vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.hero-copy h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-copy p {
+  max-width: 640px;
+  font-size: 1.05rem;
+  color: var(--earth-soft);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 42px;
+  max-width: 680px;
+}
+
+.metric {
+  padding-top: 14px;
+  border-top: 1px solid rgba(52, 35, 20, 0.12);
+}
+
+.metric-value {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.metric-label {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+.category-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(22, 49, 26, 0.09);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 255, 240, 0.92));
+  box-shadow: var(--shadow-soft);
+  text-align: left;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card:hover,
+.category-card.active {
+  transform: translateY(-4px);
+  border-color: rgba(184, 255, 59, 0.5);
+  box-shadow: var(--shadow);
+}
+
+.category-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -30px -34px auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(184, 255, 59, 0.12);
+}
+
+.category-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: var(--gold-soft);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.category-card h3 {
+  margin: 0 0 6px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem;
+}
+
+.category-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.category-count {
+  display: inline-flex;
+  margin-top: 16px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(184, 255, 59, 0.16);
+  color: var(--earth-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.products-shell {
+  display: grid;
+  gap: 28px;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(22, 49, 26, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.search-input,
+.select-input,
+.text-input,
+.text-area {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(22, 49, 26, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--earth);
+}
+
+.text-area {
+  min-height: 128px;
+  padding: 14px 16px;
+  resize: vertical;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: end;
+}
+
+.reset-btn {
+  min-height: 52px;
+  white-space: nowrap;
+}
+
+.filter-chip {
+  border: 1px solid rgba(22, 49, 26, 0.12);
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--earth-soft);
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.filter-chip.active,
+.filter-chip:hover {
+  background: var(--gold);
+  color: var(--earth);
+  border-color: var(--gold);
+}
+
+.results-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.results-lead {
+  display: grid;
+  gap: 4px;
+}
+
+.results-details {
+  font-size: 0.84rem;
+}
+
+.results-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: end;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(184, 255, 59, 0.16);
+  color: var(--earth-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.products-grid,
+.reviews-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.products-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.product-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(22, 49, 26, 0.08);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.product-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: linear-gradient(135deg, #eef8de, #ffffff);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.badge-row {
+  position: absolute;
+  inset: 14px 14px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.badge.featured {
+  background: rgba(184, 255, 59, 0.96);
+  color: var(--earth);
+}
+
+.badge.category {
+  background: rgba(22, 49, 26, 0.82);
+  color: #fff;
+}
+
+.product-body {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  height: 100%;
+}
+
+.product-top {
+  display: grid;
+  gap: 8px;
+}
+
+.product-name {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.product-desc {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.benefit {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(184, 255, 59, 0.14);
+  color: var(--sage);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.product-footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.price-wrap strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.price-wrap span {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.product-add {
+  padding-inline: 18px;
+}
+
+.product-add.added {
+  background: #8bdb27;
+  box-shadow: none;
+}
+
+.empty-state {
+  padding: 28px;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(22, 49, 26, 0.2);
+  text-align: center;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.empty-state strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--earth);
+  font-size: 1.04rem;
+}
+
+.empty-action {
+  margin-top: 18px;
+}
+
+.skeleton-card,
+.skeleton-review {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(225, 244, 198, 0.6) 25%, rgba(255, 255, 255, 0.92) 50%, rgba(225, 244, 198, 0.6) 75%);
+  background-size: 300% 100%;
+  animation: shimmer 1.2s linear infinite;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-card {
+  min-height: 360px;
+}
+
+.skeleton-review {
+  min-height: 190px;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.reviews-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+  gap: 28px;
+}
+
+.reviews-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.review-card {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(22, 49, 26, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.review-stars {
+  color: var(--gold);
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+}
+
+.review-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+  line-height: 1.35;
+}
+
+.review-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.review-side {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 255, 240, 0.9));
+  border: 1px solid rgba(22, 49, 26, 0.08);
+  box-shadow: var(--shadow);
+}
+
+.review-summary {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.review-score {
+  display: flex;
+  align-items: end;
+  gap: 14px;
+}
+
+.review-score strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3.2rem;
+  line-height: 0.9;
+}
+
+.review-score span {
+  color: var(--muted);
+}
+
+.review-form {
+  display: grid;
+  gap: 16px;
+}
+
+.rating-picker {
+  display: flex;
+  gap: 8px;
+}
+
+.star-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(22, 49, 26, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  color: #9db87a;
+  font-size: 1.2rem;
+}
+
+.star-btn.active {
+  color: var(--gold);
+  background: rgba(184, 255, 59, 0.12);
+  border-color: rgba(184, 255, 59, 0.34);
+}
+
+footer {
+  padding: 82px 0 28px;
+  background:
+    radial-gradient(circle at top right, rgba(184, 255, 59, 0.14), transparent 24%),
+    linear-gradient(180deg, #173218 0%, #0e1d0f 100%);
+  color: rgba(247, 255, 240, 0.82);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 32px;
+}
+
+.footer-brand p {
+  max-width: 360px;
+  color: rgba(247, 255, 240, 0.72);
+}
+
+.footer-title {
+  margin: 0 0 16px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.45rem;
+  color: #f7fff0;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.footer-list a {
+  color: rgba(255, 248, 236, 0.7);
+  text-decoration: none;
+}
+
+.footer-list a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.86rem;
+}
+
+.cart-overlay,
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+}
+
+.cart-overlay {
+  z-index: 110;
+  background: rgba(17, 12, 8, 0.52);
+  backdrop-filter: blur(4px);
+}
+
+.cart-overlay.open,
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 111;
+  width: min(440px, 100vw);
+  display: flex;
+  flex-direction: column;
+  background: #fbf6ec;
+  border-left: 1px solid rgba(52, 35, 20, 0.08);
+  box-shadow: -22px 0 60px rgba(17, 12, 8, 0.24);
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+}
+
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+.cart-head,
+.cart-foot {
+  padding: 22px 24px;
+  border-bottom: 1px solid rgba(52, 35, 20, 0.08);
+}
+
+.cart-foot {
+  margin-top: auto;
+  border-bottom: 0;
+  border-top: 1px solid rgba(52, 35, 20, 0.08);
+}
+
+.cart-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cart-title-row h2 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+}
+
+.close-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(52, 35, 20, 0.12);
+  background: transparent;
+  color: var(--earth);
+  font-size: 1.1rem;
+}
+
+.cart-items {
+  display: grid;
+  gap: 16px;
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.cart-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 34px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px dashed rgba(52, 35, 20, 0.14);
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(52, 35, 20, 0.06);
+}
+
+.cart-item img {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.cart-item-name {
+  font-weight: 800;
+}
+
+.cart-item-sub {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.qty-btn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(52, 35, 20, 0.12);
+  border-radius: 50%;
+  background: transparent;
+}
+
+.qty-value {
+  min-width: 22px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.remove-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgba(178, 74, 44, 0.18);
+  background: rgba(178, 74, 44, 0.08);
+  color: var(--rust);
+}
+
+.cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cart-total strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+}
+
+.cart-note {
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.stack {
+  display: grid;
+  gap: 10px;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+}
+
+.modal-overlay {
+  z-index: 210;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(17, 12, 8, 0.58);
+  backdrop-filter: blur(6px);
+}
+
+.modal {
+  width: min(100%, 500px);
+  padding: 28px;
+  border-radius: 28px;
+  background: #fbf6ec;
+  border: 1px solid rgba(52, 35, 20, 0.08);
+  box-shadow: 0 24px 60px rgba(17, 12, 8, 0.28);
+  transform: translateY(18px) scale(0.98);
+  transition: transform 0.25s ease;
+}
+
+.modal-overlay.open .modal {
+  transform: translateY(0) scale(1);
+}
+
+.modal h2 {
+  margin: 0 0 8px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+}
+
+.modal p {
+  margin: 0 0 22px;
+  color: var(--muted);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.toast-area {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 300;
+  display: grid;
+  gap: 10px;
+}
+
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 320px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  color: #fff;
+  animation: toastIn 0.22s ease;
+}
+
+.toast.success {
+  background: #2d6a4f;
+}
+
+.toast.error {
+  background: #9f3e2a;
+}
+
+.toast.info {
+  background: #3d4e62;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp 0.65s ease forwards;
+}
+
+.fade-up:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.fade-up:nth-child(3) {
+  animation-delay: 0.18s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 980px) {
+  .reviews-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .section-head,
+  .footer-bottom {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-nav {
+    gap: 16px;
+  }
+
+  .hero {
+    padding-top: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+  }
+
+  .site-nav {
+    width: min(calc(100% - 20px), var(--container));
+    min-height: 70px;
+    gap: 10px;
+  }
+
+  .brand-title {
+    font-size: 1.42rem;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .cart-button {
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 0.84rem;
+  }
+
+  .hero {
+    padding: 20px 0 18px;
+  }
+
+  .hero::before {
+    inset: 12px 0 auto;
+    height: 360px;
+  }
+
+  .hero-copy h1 {
+    margin: 14px 0 16px;
+    font-size: clamp(2.6rem, 11vw, 4rem);
+    line-height: 0.96;
+  }
+
+  .hero-copy p {
+    font-size: 0.98rem;
+  }
+
+  .nav-links {
+    position: fixed;
+    inset: 76px 16px auto;
+    display: grid;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 24px;
+    background: rgba(250, 244, 232, 0.98);
+    border: 1px solid rgba(52, 35, 20, 0.08);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-14px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar-actions {
+    align-items: stretch;
+  }
+
+  .results-meta {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .results-side {
+    justify-content: start;
+  }
+
+  .hero-actions,
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .metric:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .metric-value {
+    font-size: 1.8rem;
+  }
+
+  .section-head {
+    margin-bottom: 26px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: min(calc(100% - 20px), var(--container));
+  }
+
+  .section {
+    padding: 56px 0;
+  }
+
+  .hero-actions .btn,
+  .toolbar-actions .btn,
+  .modal-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .products-grid,
+  .reviews-grid,
+  .category-grid {
+    gap: 16px;
+  }
+
+  .product-footer {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .product-add {
+    width: 100%;
+    text-align: center;
+  }
+
+  .cart-item {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .remove-btn {
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .toast-area {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .toast {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Aller au contenu</a>
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-shell">
+    <div class="loader-mark">Produits naturels</div>
+    <div class="loader-title">Agro-Secours</div>
+    <div class="loader-bar"></div>
+  </div>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <nav class="site-nav" aria-label="Navigation principale">
+    <a href="#accueil" class="brand" aria-label="Agro-Secours, retour à l'accueil">
+      <span class="brand-title">Agro<span>&middot;</span>Secours</span>
+      <span class="brand-subtitle">Produits naturels d'Afrique</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#categories">Catégories</a></li>
+      <li><a href="#produits">Produits</a></li>
+      <li><a href="#avis">Avis</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="cart-button" id="cartToggle" type="button" aria-haspopup="dialog" aria-controls="cartDrawer" aria-expanded="false">
+        Panier
+        <span class="cart-count" id="cartBadge">0</span>
+      </button>
+      <button class="icon-btn" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Ouvrir le menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main-content">
+  <section class="hero" id="accueil">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="section-label fade-up">Origines ouest-africaines</span>
+        <h1 class="fade-up">La nature africaine dans <em>vos habitudes</em> du quotidien</h1>
+        <p class="fade-up">Farines, poudres et graines naturelles d'Afrique de l'Ouest pour le bien-être, l'alimentation et la vitalité au quotidien.</p>
+        <div class="hero-actions fade-up">
+          <a href="#produits" class="btn btn-primary">Découvrir les produits</a>
+          <a href="#avis" class="btn btn-secondary">Lire les avis</a>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric">
+            <span class="metric-value" id="metricProducts">12+</span>
+            <span class="metric-label">Produits naturels</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">100%</span>
+            <span class="metric-label">Sans additifs</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value" id="metricRating">4.9</span>
+            <span class="metric-label">Satisfaction client</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-label">Catégories</span>
+          <h2 class="section-title">Choisissez votre <em>catégorie</em></h2>
+        </div>
+        <p class="section-copy">Farines, poudres et graines sélectionnées pour vos besoins du quotidien.</p>
+      </div>
+      <div class="category-grid" id="categoryGrid" aria-live="polite">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="produits">
+    <div class="container products-shell">
+      <div class="section-head">
+        <div>
+          <span class="section-label">Produits</span>
+          <h2 class="section-title">Nos produits <em>naturels</em></h2>
+        </div>
+        <p class="section-copy">Découvrez une sélection de produits naturels adaptés à votre alimentation et à votre bien-être.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="field">
+          <label for="productSearch">Recherche</label>
+          <input class="search-input" id="productSearch" type="search" placeholder="Ex : moringa, chia, farine...">
+        </div>
+        <div class="field">
+          <label for="sortSelect">Trier par</label>
+          <select class="select-input" id="sortSelect">
+            <option value="popular">Popularité</option>
+            <option value="priceAsc">Prix croissant</option>
+            <option value="priceDesc">Prix décroissant</option>
+            <option value="nameAsc">Nom A-Z</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filterBar">Filtres</label>
+          <div class="filter-row" id="filterBar" aria-label="Filtres de produits"></div>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn btn-secondary reset-btn" id="resetFilters" type="button">Réinitialiser</button>
+        </div>
+      </div>
+
+      <div class="results-meta">
+        <div class="results-lead">
+          <div id="resultsCount">Chargement des produits...</div>
+          <div class="results-details" id="resultsDetails"></div>
+        </div>
+        <div class="results-side">
+          <div class="status-chip" id="cartQuickSummary">Panier vide</div>
+          <div id="dataMode" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="products-grid" id="productsGrid" aria-live="polite">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="avis">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-label">Ce qu'ils disent</span>
+          <h2 class="section-title">Avis <em>clients</em></h2>
+        </div>
+        <p class="section-copy">Consultez les retours de nos clients et partagez votre expérience.</p>
+      </div>
+
+      <div class="reviews-shell">
+        <div class="reviews-grid" id="reviewsGrid" aria-live="polite">
+          <div class="skeleton-review"></div>
+          <div class="skeleton-review"></div>
+          <div class="skeleton-review"></div>
+        </div>
+
+        <aside class="review-side">
+          <div class="review-summary">
+            <span class="section-label">Note moyenne</span>
+            <div class="review-score">
+              <strong id="reviewAverage">5.0</strong>
+              <span id="reviewCount">0 avis</span>
+            </div>
+            <div class="review-stars" id="reviewAverageStars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+
+          <form class="review-form" id="reviewForm">
+            <div class="field">
+              <label for="reviewName">Votre nom</label>
+              <input class="text-input" id="reviewName" name="name" type="text" placeholder="Ex : Aminata B.">
+            </div>
+
+            <div class="field">
+              <label>Votre note</label>
+              <div class="rating-picker" id="starsInput" role="radiogroup" aria-label="Choisir une note">
+                <button class="star-btn active" type="button" data-rating="1" aria-label="1 étoile">&#9733;</button>
+                <button class="star-btn active" type="button" data-rating="2" aria-label="2 étoiles">&#9733;</button>
+                <button class="star-btn active" type="button" data-rating="3" aria-label="3 étoiles">&#9733;</button>
+                <button class="star-btn active" type="button" data-rating="4" aria-label="4 étoiles">&#9733;</button>
+                <button class="star-btn active" type="button" data-rating="5" aria-label="5 étoiles">&#9733;</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="reviewText">Votre avis</label>
+              <textarea class="text-area" id="reviewText" name="text" placeholder="Partagez votre expérience avec nos produits..."></textarea>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Publier mon avis</button>
+          </form>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-title" style="color:#fff7eb">Agro<span>&middot;</span>Secours</span>
+          <span class="brand-subtitle" style="color:rgba(255,248,236,0.6)">Alimentation naturelle et vitalité</span>
+        </div>
+        <p>Des produits naturels sélectionnés pour accompagner votre alimentation, votre bien-être et votre vitalité au quotidien.</p>
+      </div>
+
+      <div>
+        <h3 class="footer-title">Navigation</h3>
+        <ul class="footer-list">
+          <li><a href="#categories">Catégories</a></li>
+          <li><a href="#produits">Produits</a></li>
+          <li><a href="#avis">Avis clients</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-title">Contact</h3>
+        <ul class="footer-list">
+          <li><a href="https://wa.me/2290199481002" target="_blank" rel="noreferrer">WhatsApp</a></li>
+          <li><a href="mailto:contact@agro-secours.com">contact@agro-secours.com</a></li>
+          <li><a href="#produits">Livraison sur commande</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span id="footerCopyright">© 2026 Agro-Secours. Tous droits réservés.</span>
+      <span>Produits naturels, commande simple et rapide.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-labelledby="cartTitle" aria-modal="true" role="dialog">
+  <div class="cart-head">
+    <div class="cart-title-row">
+      <h2 id="cartTitle">Mon panier</h2>
+      <button class="close-btn" id="closeCart" type="button" aria-label="Fermer le panier">&times;</button>
+    </div>
+    <p style="margin:10px 0 0;color:var(--muted)">Ajustez les quantités puis commandez via WhatsApp ou Stripe.</p>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">Votre panier est vide pour le moment.</div>
+  </div>
+
+  <div class="cart-foot" id="cartFooter" hidden>
+    <div class="cart-note" id="cartNote">La livraison et la confirmation finale sont précisées après validation de la commande.</div>
+    <div class="cart-total">
+      <span>Total</span>
+      <strong id="cartTotal">0 FCFA</strong>
+    </div>
+    <div class="stack">
+      <button class="btn btn-whatsapp" id="checkoutWhatsApp" type="button">Commander par WhatsApp</button>
+      <button class="btn btn-primary" id="checkoutStripe" type="button">Payer en ligne</button>
+    </div>
+  </div>
+</aside>
+
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <h2 id="checkoutTitle">Finaliser la commande</h2>
+    <p>Ajoutez vos coordonnées pour que le paiement Stripe récupère les bonnes informations client.</p>
+
+    <div class="field">
+      <label for="ckName">Nom complet</label>
+      <input class="text-input" id="ckName" type="text" placeholder="Votre nom">
+    </div>
+
+    <div class="field">
+      <label for="ckPhone">Téléphone</label>
+      <input class="text-input" id="ckPhone" type="tel" placeholder="+229 ...">
+    </div>
+
+    <div class="field">
+      <label for="ckEmail">Email</label>
+      <input class="text-input" id="ckEmail" type="email" placeholder="votre@email.com">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="cancelCheckout" type="button">Annuler</button>
+      <button class="btn btn-primary" id="launchStripe" type="button">Payer maintenant</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-area" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+const API = "http://localhost:8000/api";
+const WHATSAPP_NUMBER = "2290199481002";
+const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&auto=format&fit=crop";
+const LOCAL_CART_KEY = "agro_cart";
+const LOCAL_REVIEWS_KEY = "agro_local_reviews";
+
+const CATEGORY_META = {
+  all: { label: "Tous", icon: "TO", description: "Voir toute la sélection" },
+  farines: { label: "Farines", icon: "FA", description: "Farines nutritionnelles et culinaires" },
+  poudres: { label: "Poudres", icon: "PO", description: "Mélanges naturels et poudres de vitalité" },
+  graines: { label: "Graines", icon: "GR", description: "Graines riches en fibres et nutriments" },
+  autres: { label: "Autres", icon: "AU", description: "Produits complémentaires" }
+};
+
+const state = {
+  allProducts: [],
+  reviews: [],
+  cart: loadStoredJson(LOCAL_CART_KEY, []),
+  filter: "all",
+  search: "",
+  sort: "popular",
+  reviewRating: 5,
+  usingFallbackProducts: false,
+  usingFallbackReviews: false
+};
+
+const elements = {};
+
+window.addEventListener("load", init);
+
+function init() {
+  cacheElements();
+  bindEvents();
+  updateFooterYear();
+  setRating(5);
+  updateCartUI();
+  handleScrollState();
+  renderCategoryControls();
+  renderProductFilters();
+  renderProductGridSkeleton();
+  renderReviewSkeleton();
+
+  Promise.allSettled([loadProducts(), loadReviews()])
+    .finally(() => {
+      updateMetrics();
+      window.setTimeout(hideLoader, 650);
+    });
+}
+
+function cacheElements() {
+  elements.loader = document.getElementById("loader");
+  elements.siteHeader = document.getElementById("siteHeader");
+  elements.navLinks = document.getElementById("navLinks");
+  elements.menuToggle = document.getElementById("menuToggle");
+  elements.cartToggle = document.getElementById("cartToggle");
+  elements.cartBadge = document.getElementById("cartBadge");
+  elements.categoryGrid = document.getElementById("categoryGrid");
+  elements.filterBar = document.getElementById("filterBar");
+  elements.productSearch = document.getElementById("productSearch");
+  elements.sortSelect = document.getElementById("sortSelect");
+  elements.productsGrid = document.getElementById("productsGrid");
+  elements.resultsCount = document.getElementById("resultsCount");
+  elements.resultsDetails = document.getElementById("resultsDetails");
+  elements.cartQuickSummary = document.getElementById("cartQuickSummary");
+  elements.dataMode = document.getElementById("dataMode");
+  elements.resetFilters = document.getElementById("resetFilters");
+  elements.metricProducts = document.getElementById("metricProducts");
+  elements.metricRating = document.getElementById("metricRating");
+  elements.reviewsGrid = document.getElementById("reviewsGrid");
+  elements.reviewAverage = document.getElementById("reviewAverage");
+  elements.reviewAverageStars = document.getElementById("reviewAverageStars");
+  elements.reviewCount = document.getElementById("reviewCount");
+  elements.reviewForm = document.getElementById("reviewForm");
+  elements.starsInput = document.getElementById("starsInput");
+  elements.cartOverlay = document.getElementById("cartOverlay");
+  elements.cartDrawer = document.getElementById("cartDrawer");
+  elements.closeCart = document.getElementById("closeCart");
+  elements.cartItems = document.getElementById("cartItems");
+  elements.cartFooter = document.getElementById("cartFooter");
+  elements.cartTotal = document.getElementById("cartTotal");
+  elements.cartNote = document.getElementById("cartNote");
+  elements.checkoutWhatsApp = document.getElementById("checkoutWhatsApp");
+  elements.checkoutStripe = document.getElementById("checkoutStripe");
+  elements.checkoutModal = document.getElementById("checkoutModal");
+  elements.cancelCheckout = document.getElementById("cancelCheckout");
+  elements.launchStripe = document.getElementById("launchStripe");
+  elements.toastContainer = document.getElementById("toastContainer");
+  elements.footerCopyright = document.getElementById("footerCopyright");
+}
+
+function bindEvents() {
+  window.addEventListener("scroll", handleScrollState, { passive: true });
+  window.addEventListener("resize", handleResize);
+  document.addEventListener("keydown", handleGlobalKeydown);
+
+  elements.menuToggle.addEventListener("click", toggleMenu);
+  elements.cartToggle.addEventListener("click", () => openCart());
+  elements.closeCart.addEventListener("click", closeCart);
+  elements.cartOverlay.addEventListener("click", closeCart);
+  elements.checkoutWhatsApp.addEventListener("click", checkoutWhatsApp);
+  elements.checkoutStripe.addEventListener("click", showCheckoutModal);
+  elements.cancelCheckout.addEventListener("click", closeModal);
+  elements.launchStripe.addEventListener("click", launchStripe);
+
+  elements.productSearch.addEventListener("input", (event) => {
+    state.search = event.target.value.trim().toLowerCase();
+    renderProducts();
+  });
+
+  elements.sortSelect.addEventListener("change", (event) => {
+    state.sort = event.target.value;
+    renderProducts();
+  });
+
+  elements.resetFilters.addEventListener("click", resetProductControls);
+
+  elements.filterBar.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-filter]");
+    if (!button) {
+      return;
+    }
+    setFilter(button.dataset.filter, false);
+  });
+
+  elements.categoryGrid.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-filter]");
+    if (!button) {
+      return;
+    }
+    setFilter(button.dataset.filter, true);
+  });
+
+  elements.productsGrid.addEventListener("click", (event) => {
+    const resetButton = event.target.closest("[data-reset-filters]");
+    if (resetButton) {
+      resetProductControls();
+      return;
+    }
+
+    const addButton = event.target.closest("[data-add-to-cart]");
+    if (!addButton) {
+      return;
+    }
+    addToCart(addButton.dataset.addToCart);
+  });
+
+  elements.cartItems.addEventListener("click", (event) => {
+    const qtyButton = event.target.closest("[data-qty]");
+    if (qtyButton) {
+      changeQty(qtyButton.dataset.id, Number(qtyButton.dataset.qty));
+      return;
+    }
+
+    const removeButton = event.target.closest("[data-remove]");
+    if (removeButton) {
+      removeFromCart(removeButton.dataset.remove);
+    }
+  });
+
+  elements.starsInput.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-rating]");
+    if (!button) {
+      return;
+    }
+    setRating(Number(button.dataset.rating));
+  });
+
+  elements.reviewForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    await submitReview();
+  });
+
+  elements.checkoutModal.addEventListener("click", (event) => {
+    if (event.target === elements.checkoutModal) {
+      closeModal();
+    }
+  });
+
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+}
+
+function hideLoader() {
+  elements.loader.classList.add("hidden");
+}
+
+function handleScrollState() {
+  elements.siteHeader.classList.toggle("scrolled", window.scrollY > 10);
+}
+
+function handleResize() {
+  if (window.innerWidth > 768) {
+    closeMenu();
+  }
+}
+
+function handleGlobalKeydown(event) {
+  if (event.key === "Escape") {
+    if (elements.checkoutModal.classList.contains("open")) {
+      closeModal();
+      return;
+    }
+    if (elements.cartDrawer.classList.contains("open")) {
+      closeCart();
+      return;
+    }
+    if (elements.navLinks.classList.contains("open")) {
+      closeMenu();
+    }
+  }
+}
+
+function toggleMenu() {
+  const isOpen = elements.navLinks.classList.toggle("open");
+  elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+}
+
+function closeMenu() {
+  elements.navLinks.classList.remove("open");
+  elements.menuToggle.setAttribute("aria-expanded", "false");
+}
+
+function openCart() {
+  elements.cartOverlay.classList.add("open");
+  elements.cartDrawer.classList.add("open");
+  elements.cartToggle.setAttribute("aria-expanded", "true");
+  document.body.classList.add("no-scroll");
+}
+
+function closeCart() {
+  elements.cartOverlay.classList.remove("open");
+  elements.cartDrawer.classList.remove("open");
+  elements.cartToggle.setAttribute("aria-expanded", "false");
+  syncScrollLock();
+}
+
+function showCheckoutModal() {
+  if (!state.cart.length) {
+    showToast("Votre panier est vide.", "error");
+    return;
+  }
+  elements.checkoutModal.classList.add("open");
+  document.body.classList.add("no-scroll");
+}
+
+function closeModal() {
+  elements.checkoutModal.classList.remove("open");
+  syncScrollLock();
+}
+
+function syncScrollLock() {
+  const shouldLock =
+    elements.checkoutModal.classList.contains("open") ||
+    elements.cartDrawer.classList.contains("open");
+
+  document.body.classList.toggle("no-scroll", shouldLock);
+}
+
+async function loadProducts() {
+  try {
+    const response = await fetch(`${API}/products?limit=100`);
+    if (!response.ok) {
+      throw new Error("Produits indisponibles");
+    }
+
+    const data = await response.json();
+    const rawItems = Array.isArray(data) ? data : safeArray(data.items);
+    state.allProducts = rawItems.map(normalizeProduct).filter(Boolean);
+
+    if (!state.allProducts.length) {
+      throw new Error("Liste produits vide");
+    }
+
+    state.usingFallbackProducts = false;
+  } catch (error) {
+    state.allProducts = FALLBACK_PRODUCTS.map(normalizeProduct).filter(Boolean);
+    state.usingFallbackProducts = true;
+  }
+
+  renderCategoryControls();
+  renderProductFilters();
+  renderProducts();
+  updateCartUI();
+  updateMetrics();
+}
+
+async function loadReviews() {
+  const localReviews = loadStoredJson(LOCAL_REVIEWS_KEY, []);
+
+  try {
+    const response = await fetch(`${API}/reviews`);
+    if (!response.ok) {
+      throw new Error("Avis indisponibles");
+    }
+
+    const data = await response.json();
+    const remoteReviews = safeArray(data).map(normalizeReview).filter(Boolean);
+    state.reviews = [...localReviews.map(normalizeReview).filter(Boolean), ...remoteReviews];
+    state.usingFallbackReviews = false;
+  } catch (error) {
+    state.reviews = [...localReviews.map(normalizeReview).filter(Boolean), ...FALLBACK_REVIEWS.map(normalizeReview)];
+    state.usingFallbackReviews = true;
+  }
+
+  renderReviews();
+  updateMetrics();
+}
+
+function normalizeProduct(product, index = 0) {
+  if (!product) {
+    return null;
+  }
+
+  return {
+    id: String(product.id ?? product.slug ?? index + 1),
+    slug: String(product.slug ?? ""),
+    name_fr: String(product.name_fr ?? product.name ?? "Produit naturel"),
+    description_fr: String(product.description_fr ?? product.description ?? ""),
+    category: String(product.category ?? "autres").toLowerCase(),
+    price_xof: Number(product.price_xof ?? product.price ?? 0),
+    weight: String(product.weight ?? ""),
+    image: String(product.image ?? FALLBACK_IMAGE),
+    benefits_fr: safeArray(product.benefits_fr ?? product.benefits).map((item) => String(item)),
+    is_bestseller: Boolean(product.is_bestseller ?? product.bestseller)
+  };
+}
+
+function normalizeReview(review) {
+  if (!review) {
+    return null;
+  }
+
+  const rating = clamp(Number(review.rating ?? 5), 1, 5);
+
+  return {
+    name: String(review.name ?? "Client"),
+    text: String(review.text ?? ""),
+    rating,
+    source: String(review.source ?? "client")
+  };
+}
+
+function renderCategoryControls() {
+  const categories = getCategories();
+
+  elements.categoryGrid.innerHTML = categories
+    .map((category) => {
+      const meta = CATEGORY_META[category] || CATEGORY_META.autres;
+      const count = category === "all"
+        ? state.allProducts.length
+        : state.allProducts.filter((product) => product.category === category).length;
+
+      return `
+        <button class="category-card ${category === state.filter ? "active" : ""}" type="button" data-filter="${escapeAttribute(category)}">
+          <span class="category-icon">${escapeHtml(meta.icon)}</span>
+          <h3>${escapeHtml(meta.label)}</h3>
+          <p>${escapeHtml(meta.description)}</p>
+          <span class="category-count">${count} ${count > 1 ? "produits" : "produit"}</span>
+        </button>
+      `;
+    })
+    .join("");
+}
+
+function renderProductFilters() {
+  const categories = getCategories();
+
+  elements.filterBar.innerHTML = categories
+    .map((category) => {
+      const meta = CATEGORY_META[category] || CATEGORY_META.autres;
+      return `
+        <button class="filter-chip ${category === state.filter ? "active" : ""}" type="button" data-filter="${escapeAttribute(category)}">
+          ${escapeHtml(meta.label)}
+        </button>
+      `;
+    })
+    .join("");
+}
+
+function setFilter(filter, scrollIntoView) {
+  state.filter = filter;
+  renderCategoryControls();
+  renderProductFilters();
+  renderProducts();
+
+  if (scrollIntoView) {
+    document.getElementById("produits").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+function resetProductControls() {
+  state.filter = "all";
+  state.search = "";
+  state.sort = "popular";
+
+  elements.productSearch.value = "";
+  elements.sortSelect.value = "popular";
+
+  renderCategoryControls();
+  renderProductFilters();
+  renderProducts();
+}
+
+function renderProductGridSkeleton() {
+  elements.productsGrid.innerHTML = `
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+  `;
+}
+
+function renderReviewSkeleton() {
+  elements.reviewsGrid.innerHTML = `
+    <div class="skeleton-review"></div>
+    <div class="skeleton-review"></div>
+    <div class="skeleton-review"></div>
+  `;
+}
+
+function renderProducts() {
+  const products = getVisibleProducts();
+  const details = [];
+
+  elements.resultsCount.textContent = `${products.length} ${products.length > 1 ? "produits trouvés" : "produit trouvé"}`;
+  if (state.filter !== "all") {
+    details.push(`Catégorie : ${(CATEGORY_META[state.filter] || CATEGORY_META.autres).label}`);
+  }
+  if (state.search) {
+    details.push(`Recherche : "${state.search}"`);
+  }
+  elements.resultsDetails.textContent = details.length ? details.join(" · ") : "Tous les produits sont actuellement affichés.";
+  elements.dataMode.textContent = "";
+
+  if (!products.length) {
+    elements.productsGrid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <strong>Aucun produit ne correspond à votre recherche.</strong>
+        Essayez une autre catégorie ou un mot-clé plus simple.
+        <div class="empty-action">
+          <button class="btn btn-secondary" type="button" data-reset-filters>Réinitialiser les filtres</button>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  elements.productsGrid.innerHTML = products
+    .map((product) => {
+      const categoryMeta = CATEGORY_META[product.category] || CATEGORY_META.autres;
+      const cartQty = getCartQuantity(product.id);
+      return `
+        <article class="product-card">
+          <div class="product-image">
+            <img src="${escapeAttribute(product.image || FALLBACK_IMAGE)}" alt="${escapeAttribute(product.name_fr)}" loading="lazy" onerror="this.src='${FALLBACK_IMAGE}'">
+            <div class="badge-row">
+              ${product.is_bestseller ? '<span class="badge featured">Best seller</span>' : ""}
+              <span class="badge category">${escapeHtml(categoryMeta.label)}</span>
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-top">
+              <h3 class="product-name">${escapeHtml(product.name_fr)}</h3>
+              <div class="product-desc">${escapeHtml(product.description_fr || "Produit naturel de qualité.")}</div>
+            </div>
+            <div class="benefits">
+              ${safeArray(product.benefits_fr).slice(0, 3).map((benefit) => `<span class="benefit">${escapeHtml(benefit)}</span>`).join("")}
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <strong>${formatPrice(product.price_xof)}</strong>
+                <span>${escapeHtml(product.weight || "Poids à confirmer")}</span>
+              </div>
+              <button class="btn btn-primary product-add ${cartQty ? "added" : ""}" type="button" data-add-to-cart="${escapeAttribute(product.id)}" aria-label="Ajouter ${escapeAttribute(product.name_fr)} au panier">
+                ${cartQty ? `${cartQty} dans le panier` : "Ajouter"}
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
+  updateProductButtonStates();
+}
+
+function getVisibleProducts() {
+  const query = state.search;
+
+  const filtered = state.allProducts.filter((product) => {
+    const matchesCategory = state.filter === "all" || product.category === state.filter;
+    const haystack = [
+      product.name_fr,
+      product.description_fr,
+      product.category,
+      ...safeArray(product.benefits_fr)
+    ]
+      .join(" ")
+      .toLowerCase();
+    const matchesSearch = !query || haystack.includes(query);
+    return matchesCategory && matchesSearch;
+  });
+
+  const sorter = {
+    popular: (a, b) => Number(b.is_bestseller) - Number(a.is_bestseller) || a.price_xof - b.price_xof,
+    priceAsc: (a, b) => a.price_xof - b.price_xof,
+    priceDesc: (a, b) => b.price_xof - a.price_xof,
+    nameAsc: (a, b) => a.name_fr.localeCompare(b.name_fr, "fr")
+  }[state.sort] || ((a, b) => 0);
+
+  return [...filtered].sort(sorter);
+}
+
+function addToCart(productId) {
+  const product = state.allProducts.find((item) => item.id === productId);
+  if (!product) {
+    return;
+  }
+
+  const existing = state.cart.find((item) => item.product_id === productId);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    state.cart.push({ product_id: productId, quantity: 1, snapshot: product });
+  }
+
+  persistCart();
+  updateCartUI();
+  showToast(`${product.name_fr} ajouté au panier.`, "success");
+}
+
+function removeFromCart(productId) {
+  state.cart = state.cart.filter((item) => item.product_id !== productId);
+  persistCart();
+  updateCartUI();
+}
+
+function changeQty(productId, delta) {
+  const item = state.cart.find((entry) => entry.product_id === productId);
+  if (!item) {
+    return;
+  }
+
+  item.quantity = Math.max(0, item.quantity + delta);
+  if (item.quantity === 0) {
+    removeFromCart(productId);
+    return;
+  }
+
+  persistCart();
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+  const total = state.cart.reduce((sum, item) => {
+    const product = getProductById(item.product_id);
+    return sum + (product ? product.price_xof * item.quantity : 0);
+  }, 0);
+
+  elements.cartBadge.textContent = String(count);
+  elements.cartTotal.textContent = formatPrice(total);
+  elements.cartQuickSummary.textContent = count ? `${count} article${count > 1 ? "s" : ""} · ${formatPrice(total)}` : "Panier vide";
+  elements.cartNote.textContent = count
+    ? "La livraison et la confirmation finale sont précisées après validation de la commande."
+    : "Ajoutez des produits pour voir le résumé de commande.";
+
+  if (!state.cart.length) {
+    elements.cartItems.innerHTML = '<div class="cart-empty">Votre panier est vide pour le moment.</div>';
+    elements.cartFooter.hidden = true;
+    updateProductButtonStates();
+    return;
+  }
+
+  elements.cartFooter.hidden = false;
+  elements.cartItems.innerHTML = state.cart
+    .map((item) => {
+      const product = getProductById(item.product_id);
+      if (!product) {
+        return "";
+      }
+
+      return `
+        <div class="cart-item">
+          <img src="${escapeAttribute(product.image || FALLBACK_IMAGE)}" alt="${escapeAttribute(product.name_fr)}" onerror="this.src='${FALLBACK_IMAGE}'">
+          <div>
+            <div class="cart-item-name">${escapeHtml(product.name_fr)}</div>
+            <div class="cart-item-sub">${formatPrice(product.price_xof)}${product.weight ? ` &middot; ${escapeHtml(product.weight)}` : ""}</div>
+            <div class="qty-controls">
+              <button class="qty-btn" type="button" data-id="${escapeAttribute(item.product_id)}" data-qty="-1" aria-label="Retirer une unité">-</button>
+              <span class="qty-value">${item.quantity}</span>
+              <button class="qty-btn" type="button" data-id="${escapeAttribute(item.product_id)}" data-qty="1" aria-label="Ajouter une unité">+</button>
+            </div>
+          </div>
+          <button class="remove-btn" type="button" data-remove="${escapeAttribute(item.product_id)}" aria-label="Supprimer ${escapeAttribute(product.name_fr)}">&times;</button>
+        </div>
+      `;
+    })
+    .join("");
+
+  updateProductButtonStates();
+}
+
+async function checkoutWhatsApp() {
+  if (!state.cart.length) {
+    showToast("Votre panier est vide.", "error");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API}/checkout/whatsapp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: state.cart.map((item) => ({
+          product_id: item.product_id,
+          quantity: item.quantity
+        }))
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("WhatsApp checkout indisponible");
+    }
+
+    const data = await response.json();
+    if (data.whatsapp_url) {
+      window.location.href = data.whatsapp_url;
+      showToast("Redirection vers WhatsApp...", "success");
+      state.cart = []; persistCart(); updateCartUI();
+      return;
+    }
+  } catch (error) {
+    const messageLines = [
+      "Bonjour Agro-Secours, je souhaite commander :",
+      ...state.cart.map((item) => {
+        const product = getProductById(item.product_id);
+        if (!product) {
+          return "";
+        }
+        return `- ${product.name_fr} x ${item.quantity} (${formatPrice(product.price_xof * item.quantity)})`;
+      }).filter(Boolean),
+      "",
+      `Total : ${formatPrice(getCartTotal())}`
+    ];
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(messageLines.join("\n"))}`;
+    window.location.href = url;
+    showToast("Commande WhatsApp ouverte en mode direct.", "info");
+  }
+}
+
+async function launchStripe() {
+  if (!state.cart.length) {
+    showToast("Votre panier est vide.", "error");
+    return;
+  }
+
+  const name = document.getElementById("ckName").value.trim();
+  const phone = document.getElementById("ckPhone").value.trim();
+  const email = document.getElementById("ckEmail").value.trim();
+
+  if (!name || !phone) {
+    showToast("Le nom et le téléphone sont requis.", "error");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API}/checkout/stripe`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: state.cart.map((item) => ({
+          product_id: item.product_id,
+          quantity: item.quantity
+        })),
+        origin_url: window.location.origin,
+        customer_name: name,
+        customer_phone: phone,
+        customer_email: email || undefined
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Stripe checkout indisponible");
+    }
+
+    const data = await response.json();
+    if (!data.url) {
+      throw new Error("URL Stripe manquante");
+    }
+
+    window.location.href = data.url;
+  } catch (error) {
+    showToast("Le paiement en ligne n'est pas disponible. Utilisez WhatsApp.", "error");
+  }
+}
+
+function renderReviews() {
+  const reviews = state.reviews;
+  const average = getAverageRating(reviews);
+
+  elements.reviewAverage.textContent = average.toFixed(1);
+  elements.reviewAverageStars.innerHTML = renderStars(Math.round(average));
+  elements.reviewCount.textContent = `${reviews.length} ${reviews.length > 1 ? "avis" : "avis"}`;
+
+  if (!reviews.length) {
+    elements.reviewsGrid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">Aucun avis pour le moment.</div>';
+    return;
+  }
+
+  elements.reviewsGrid.innerHTML = reviews
+    .map((review) => `
+      <article class="review-card">
+        <div class="review-stars" aria-label="${review.rating} étoiles">${renderStars(review.rating)}</div>
+        <div class="review-text">"${escapeHtml(review.text)}"</div>
+        <div class="review-meta">
+          <span>${escapeHtml(review.name)}</span>
+          <span>${review.source === "local" ? "Avis local" : "Client vérifié"}</span>
+        </div>
+      </article>
+    `)
+    .join("");
+}
+
+async function submitReview() {
+  const name = document.getElementById("reviewName").value.trim();
+  const text = document.getElementById("reviewText").value.trim();
+
+  if (!name || !text) {
+    showToast("Le nom et l'avis sont requis.", "error");
+    return;
+  }
+
+  const review = {
+    name,
+    text,
+    rating: state.reviewRating,
+    source: "local"
+  };
+
+  try {
+    const response = await fetch(`${API}/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        text,
+        rating: state.reviewRating
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Publication impossible");
+    }
+
+    showToast("Merci pour votre avis.", "success");
+    clearReviewForm();
+    await loadReviews();
+  } catch (error) {
+    const localReviews = loadStoredJson(LOCAL_REVIEWS_KEY, []);
+    localReviews.unshift(review);
+    localStorage.setItem(LOCAL_REVIEWS_KEY, JSON.stringify(localReviews));
+    state.reviews.unshift(review);
+    renderReviews();
+    clearReviewForm();
+    showToast("Merci pour votre avis.", "success");
+  }
+}
+
+function clearReviewForm() {
+  elements.reviewForm.reset();
+  setRating(5);
+}
+
+function setRating(rating) {
+  state.reviewRating = clamp(rating, 1, 5);
+  elements.starsInput.querySelectorAll("[data-rating]").forEach((button) => {
+    const current = Number(button.dataset.rating);
+    const active = current <= state.reviewRating;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-checked", String(current === state.reviewRating));
+  });
+}
+
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  elements.toastContainer.appendChild(toast);
+  window.setTimeout(() => {
+    toast.remove();
+  }, 3200);
+}
+
+function updateMetrics() {
+  elements.metricProducts.textContent = `${state.allProducts.length}+`;
+  const average = getAverageRating(state.reviews) || 5;
+  elements.metricRating.textContent = average.toFixed(1);
+}
+
+function updateProductButtonStates() {
+  document.querySelectorAll("[data-add-to-cart]").forEach((button) => {
+    const quantity = getCartQuantity(button.dataset.addToCart);
+    button.classList.toggle("added", quantity > 0);
+    button.textContent = quantity > 0 ? `${quantity} dans le panier` : "Ajouter";
+  });
+}
+
+function updateFooterYear() {
+  const year = new Date().getFullYear();
+  elements.footerCopyright.textContent = `© ${year} Agro-Secours. Tous droits réservés.`;
+}
+
+function getProductById(productId) {
+  return state.allProducts.find((product) => product.id === productId)
+    || state.cart.find((item) => item.product_id === productId)?.snapshot
+    || null;
+}
+
+function getCartQuantity(productId) {
+  return state.cart.find((item) => item.product_id === productId)?.quantity || 0;
+}
+
+function getCategories() {
+  const productCategories = [...new Set(state.allProducts.map((product) => product.category).filter(Boolean))];
+  const ordered = productCategories.filter((category) => category !== "all");
+  return ["all", ...ordered];
+}
+
+function getCartTotal() {
+  return state.cart.reduce((sum, item) => {
+    const product = getProductById(item.product_id);
+    return sum + (product ? product.price_xof * item.quantity : 0);
+  }, 0);
+}
+
+function getAverageRating(reviews) {
+  if (!reviews.length) {
+    return 5;
+  }
+  const total = reviews.reduce((sum, review) => sum + clamp(Number(review.rating), 1, 5), 0);
+  return total / reviews.length;
+}
+
+function persistCart() {
+  localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart));
+}
+
+function loadStoredJson(key, fallbackValue) {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallbackValue;
+  } catch (error) {
+    return fallbackValue;
+  }
+}
+
+function safeArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function formatPrice(value) {
+  return `${Number(value || 0).toLocaleString("fr-FR")} FCFA`;
+}
+
+function renderStars(rating) {
+  const full = "&#9733;".repeat(clamp(rating, 0, 5));
+  const empty = "&#9734;".repeat(5 - clamp(rating, 0, 5));
+  return `${full}${empty}`;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value).replaceAll("`", "&#96;");
+}
+
+const FALLBACK_PRODUCTS = [
+  {
+    id: "1",
+    slug: "farine-soja",
+    name_fr: "Farine de soja",
+    description_fr: "Riche en protéines végétales et utile pour enrichir les préparations du quotidien.",
+    category: "farines",
+    price_xof: 1500,
+    weight: "500 g",
+    image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&auto=format&fit=crop",
+    benefits_fr: ["Protéines", "Sans OGM", "Cuisine familiale"],
+    is_bestseller: true
+  },
+  {
+    id: "2",
+    slug: "farine-moringa",
+    name_fr: "Farine de moringa",
+    description_fr: "Une farine végétale appréciée pour ses vitamines et sa polyvalence en infusion ou en mélange.",
+    category: "farines",
+    price_xof: 1500,
+    weight: "200 g",
+    image: "https://images.unsplash.com/photo-1615485925600-97237c4fc1ec?w=800&auto=format&fit=crop",
+    benefits_fr: ["Vitamines", "Antioxydants", "Énergie"],
+    is_bestseller: true
+  },
+  {
+    id: "3",
+    slug: "graines-chia",
+    name_fr: "Graines de chia",
+    description_fr: "Des graines riches en fibres et en oméga 3 pour les bouillies, salades ou desserts.",
+    category: "graines",
+    price_xof: 6000,
+    weight: "250 g",
+    image: "https://images.unsplash.com/photo-1514537099923-4c9c4ea3bfdd?w=800&auto=format&fit=crop",
+    benefits_fr: ["Fibres", "Oméga 3", "Satiété"],
+    is_bestseller: true
+  },
+  {
+    id: "4",
+    slug: "farine-agbonnon",
+    name_fr: "Farine Agbonnon",
+    description_fr: "Mélange ancestral valorisé pour la vitalité et l'équilibre alimentaire.",
+    category: "poudres",
+    price_xof: 2000,
+    weight: "70 g",
+    image: "https://images.unsplash.com/photo-1615484477778-ca3b77940c25?w=800&auto=format&fit=crop",
+    benefits_fr: ["Vitalité", "Naturel", "Tradition"],
+    is_bestseller: true
+  },
+  {
+    id: "5",
+    slug: "poudre-baobab",
+    name_fr: "Poudre de baobab",
+    description_fr: "Une poudre acidulée et naturelle idéale pour boissons, smoothies et recettes vitaminées.",
+    category: "poudres",
+    price_xof: 2500,
+    weight: "180 g",
+    image: "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?w=800&auto=format&fit=crop",
+    benefits_fr: ["Vitamine C", "Minéraux", "Boissons"],
+    is_bestseller: false
+  },
+  {
+    id: "6",
+    slug: "graines-sesame",
+    name_fr: "Graines de sésame",
+    description_fr: "Des graines savoureuses pour enrichir les pains, sauces et recettes traditionnelles.",
+    category: "graines",
+    price_xof: 2200,
+    weight: "300 g",
+    image: "https://images.unsplash.com/photo-1603048719539-9ecb0f2f4095?w=800&auto=format&fit=crop",
+    benefits_fr: ["Calcium", "Saveur", "Cuisine"],
+    is_bestseller: false
+  }
+];
+
+const FALLBACK_REVIEWS = [
+  {
+    name: "Aïssatou K.",
+    text: "Produits naturels de très bonne qualité. Je recommande vivement.",
+    rating: 5,
+    source: "client"
+  },
+  {
+    name: "Jean-Marc D.",
+    text: "Commande rapide et service sérieux. Très bonne expérience.",
+    rating: 5,
+    source: "client"
+  },
+  {
+    name: "Fatoumata S.",
+    text: "Les informations produit sont plus claires et j'ai trouvé facilement ce que je cherchais.",
+    rating: 4,
+    source: "client"
+  }
+];
+</script>
+</body>
+</html>

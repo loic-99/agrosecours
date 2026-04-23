@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agro·Secours — Administration</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <style>
+    :root { --sidebar-width: 260px; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f8f9fa; }
+    .sidebar {
+      position: fixed; top: 0; left: 0; height: 100vh; width: var(--sidebar-width);
+      background: linear-gradient(180deg, #2d5016 0%, #1a3009 100%);
+      color: #fff; padding: 1rem; z-index: 1040;
+    }
+    .sidebar .brand { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; }
+    .sidebar .nav-link { color: rgba(255,255,255,0.85); padding: 0.75rem 1rem; border-radius: 8px; margin: 0.25rem 0; }
+    .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(255,255,255,0.15); color: #fff; }
+    .main-content { margin-left: var(--sidebar-width); min-height: 100vh; }
+    .topbar {
+      height: 60px; background: #fff; border-bottom: 1px solid #e9ecef;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem;
+    }
+    .stat-card { border: none; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .table-card { border: none; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .image-preview { max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 0.5rem; display: none; }
+    .image-preview.show { display: block; }
+    @media (max-width: 992px) { .sidebar { display: none; } .main-content { margin-left: 0; } }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="loginModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Connexion Administrateur</h5></div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="mb-3"><label>Email</label><input type="email" class="form-control" id="loginEmail" required></div>
+          <div class="mb-3"><label>Mot de passe</label><input type="password" class="form-control" id="loginPassword" required></div>
+          <div class="alert alert-danger d-none" id="loginError"></div>
+          <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title text-danger">Confirmer la suppression</h5></div>
+      <div class="modal-body"><p id="deleteMessage">Voulez-vous vraiment supprimer cet élément ?</p></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button class="btn btn-danger" id="deleteConfirm">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">🌿 Agro·Secours</div>
+  <nav class="nav flex-column">
+    <a class="nav-link active" href="#" data-section="dashboard">📊 Tableau de bord</a>
+    <a class="nav-link" href="#" data-section="orders">📦 Commandes <span class="badge bg-danger ms-auto" id="pendingBadge">0</span></a>
+    <a class="nav-link" href="#" data-section="products">🌿 Produits</a>
+    <a class="nav-link" href="#" data-section="reviews">⭐ Avis clients</a>
+    <a class="nav-link" href="#" data-section="settings">⚙️ Configuration</a>
+  </nav>
+  <div class="mt-auto pt-3">
+    <div class="small mb-2"><strong id="userName">Admin</strong><br><span class="text-white-50" id="userEmail">admin@...</span></div>
+    <button class="btn btn-outline-light btn-sm w-100" id="logoutBtn">🚪 Déconnexion</button>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <header class="topbar">
+    <h5 class="mb-0" id="pageTitle">Tableau de bord</h5>
+    <a href="/" target="_blank" class="btn btn-outline-success btn-sm">👁 Voir le site</a>
+  </header>
+
+  <div class="container-fluid p-4">
+    <!-- DASHBOARD -->
+    <section id="section-dashboard">
+      <div class="row g-4 mb-4">
+        <div class="col-md-3">
+          <div class="card stat-card bg-primary text-white">
+            <div class="card-body"><div class="h4 mb-0" id="statOrders">—</div><div class="small">Commandes totales</div></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-card bg-success text-white">
+            <div class="card-body"><div class="h4 mb-0" id="statPaid">—</div><div class="small">Commandes payées</div></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-card bg-warning text-dark">
+            <div class="card-body"><div class="h4 mb-0" id="statProducts">—</div><div class="small">Produits</div></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-card bg-info text-white">
+            <div class="card-body"><div class="h4 mb-0" id="statRevenue">—</div><div class="small">Revenus (FCFA)</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section id="section-orders" class="d-none">
+      <div class="card table-card">
+        <div class="card-body">
+          <div class="mb-3">
+            <select class="form-select w-auto d-inline" id="orderStatusFilter" style="width:auto!important">
+              <option value="">Tous les statuts</option>
+              <option value="paid">Payé</option>
+              <option value="pending_confirmation">En attente</option>
+              <option value="completed">Livré</option>
+              <option value="cancelled">Annulé</option>
+            </select>
+          </div>
+          <table class="table table-hover">
+            <thead><tr><th>Référence</th><th>Client</th><th>Total</th><th>Méthode</th><th>Statut</th><th>Actions</th></tr></thead>
+            <tbody id="ordersBody"><tr><td colspan="6" class="text-center">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="section-products" class="d-none">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5>Catalogue produits</h5>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal" onclick="resetProductForm()">➕ Nouveau produit</button>
+      </div>
+      <div class="card table-card">
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead><tr><th>Photo</th><th>Nom</th><th>Catégorie</th><th>Prix</th><th>Stock</th><th>Actions</th></tr></thead>
+            <tbody id="productsBody"><tr><td colspan="6" class="text-center">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="section-reviews" class="d-none">
+      <div class="card table-card">
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead><tr><th>Nom</th><th>Avis</th><th>Note</th><th>Actions</th></tr></thead>
+            <tbody id="reviewsBody"><tr><td colspan="4" class="text-center">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="section-settings" class="d-none">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card"><div class="card-body">
+            <h6>Taux de change XOF → EUR</h6>
+            <form id="configForm">
+              <input type="number" step="0.00001" class="form-control mb-2" id="xofEurRate" required>
+              <button class="btn btn-primary">Enregistrer</button>
+            </form>
+          </div></div>
+        </div>
+        <div class="col-md-6">
+          <div class="card"><div class="card-body">
+            <h6>URL de l'API</h6>
+            <form id="apiUrlForm">
+              <input type="url" class="form-control mb-2" id="apiUrl" placeholder="http://localhost:8000">
+              <button class="btn btn-primary">Enregistrer</button>
+            </form>
+          </div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- PRODUCT MODAL -->
+<div class="modal fade" id="productModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="productForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalTitle">Nouveau produit</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="productSlug">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label>Nom (FR) *</label>
+              <input type="text" class="form-control" id="pNameFr" required>
+            </div>
+            <div class="col-md-6">
+              <label>Nom (EN) *</label>
+              <input type="text" class="form-control" id="pNameEn" required>
+            </div>
+            <div class="col-md-6">
+              <label>Slug *</label>
+              <input type="text" class="form-control" id="pSlug" required>
+            </div>
+            <div class="col-md-6">
+              <label>Catégorie *</label>
+              <select class="form-select" id="pCategory" required>
+                <option value="farines">Farines</option>
+                <option value="poudres">Poudres</option>
+                <option value="graines">Graines</option>
+                <option value="huiles">Huiles</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label>Description (FR) *</label>
+              <textarea class="form-control" id="pDescFr" rows="2" required></textarea>
+            </div>
+            <div class="col-md-6">
+              <label>Description (EN) *</label>
+              <textarea class="form-control" id="pDescEn" rows="2" required></textarea>
+            </div>
+            <div class="col-md-4">
+              <label>Prix (FCFA) *</label>
+              <input type="number" class="form-control" id="pPrice" required>
+            </div>
+            <div class="col-md-4">
+              <label>Poids</label>
+              <input type="text" class="form-control" id="pWeight">
+            </div>
+            <div class="col-md-4">
+              <label>Stock</label>
+              <input type="number" class="form-control" id="pStock" value="100">
+            </div>
+            <div class="col-12">
+              <label>Image *</label>
+              <input type="text" class="form-control mb-2" id="pImage" placeholder="https://... ou téléversez ci-dessous">
+              <input type="file" class="form-control" id="imageFile" accept="image/*">
+              <small class="text-muted">Ou téléversez une image depuis votre ordinateur (JPG, PNG, WEBP)</small>
+              <img id="imagePreview" class="image-preview mt-2">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-success">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const API_BASE = localStorage.getItem('apiBaseUrl') || '';
+let currentUser = null;
+let deleteCallback = null;
+
+const $ = (sel) => document.querySelector(sel);
+const fmtXof = n => Math.round(n).toLocaleString('fr-FR') + ' FCFA';
+
+async function api(path, opts = {}) {
+  const url = `${API_BASE}/api${path}`;
+  const res = await fetch(url, { ...opts, headers: { 'Content-Type': 'application/json', ...opts.headers }, credentials: 'include' });
+  if (res.status === 401) { logout(); throw new Error('Session expirée'); }
+  if (!res.ok) { const err = await res.json().catch(()=>({})); throw new Error(err.detail || `Erreur ${res.status}`); }
+  return res.json();
+}
+
+async function login(email, password) {
+  const res = await fetch(`${API_BASE}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }), credentials: 'include'
+  });
+  if (!res.ok) throw new Error('Échec connexion');
+  currentUser = await res.json();
+  localStorage.setItem('adminUser', JSON.stringify(currentUser));
+}
+
+function logout() {
+  fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' }).catch(()=>{});
+  currentUser = null; localStorage.removeItem('adminUser'); location.reload();
+}
+
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
+  $(`#section-${id}`)?.classList.remove('d-none');
+  document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
+  $(`.sidebar .nav-link[data-section="${id}"]`)?.classList.add('active');
+  if (id === 'dashboard') loadDashboard();
+  if (id === 'orders') loadOrders();
+  if (id === 'products') loadProducts();
+  if (id === 'reviews') loadReviews();
+}
+
+async function loadDashboard() {
+  const stats = await api('/admin/stats');
+  $('#statOrders').textContent = stats.orders;
+  $('#statPaid').textContent = stats.paid_orders;
+  $('#statProducts').textContent = stats.products;
+  $('#statRevenue').textContent = fmtXof(stats.revenue_xof);
+}
+
+async function loadOrders() {
+  const filter = $('#orderStatusFilter').value;
+  const url = filter ? `/admin/orders?status=${filter}` : '/admin/orders';
+  const data = await api(url);
+  $('#pendingBadge').textContent = data.items.filter(o => o.status === 'pending_confirmation').length;
+  $('#ordersBody').innerHTML = data.items.map(o => `
+    <tr>
+      <td><code>${(o.id||'').slice(0,8).toUpperCase()}</code></td>
+      <td>${o.customer?.name||'—'}<br><small class="text-muted">${o.customer?.phone||''}</small></td>
+      <td>${fmtXof(o.total_xof||0)}</td>
+      <td><span class="badge bg-secondary">${o.payment_method||'—'}</span></td>
+      <td><span class="badge bg-${o.status==='paid'?'success':'warning'}">${o.status}</span></td>
+      <td>
+        <select class="form-select form-select-sm" onchange="updateOrderStatus('${o.id}', this.value)" ${['paid','completed','cancelled'].includes(o.status)?'disabled':''}>
+          <option value="">Changer</option>
+          <option value="paid" ${o.status==='paid'?'selected':''}>✅ Payé</option>
+          <option value="completed" ${o.status==='completed'?'selected':''}>📦 Livré</option>
+          <option value="cancelled" ${o.status==='cancelled'?'selected':''}>❌ Annulé</option>
+        </select>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" class="text-center">Aucune commande</td></tr>';
+}
+
+async function updateOrderStatus(orderId, status) {
+  if (!status) return;
+  await api(`/admin/orders/${orderId}/status`, { method: 'PUT', body: JSON.stringify({ status }) });
+  alert('✅ Statut mis à jour');
+  loadOrders();
+}
+
+async function loadProducts() {
+  const data = await api('/products?limit=100');
+  $('#productsBody').innerHTML = data.items.map(p => `
+    <tr>
+      <td><img src="${p.image}" style="width:50px;height:50px;object-fit:cover;border-radius:4px"></td>
+      <td><strong>${p.name_fr}</strong><br><small class="text-muted">${p.name_en}</small></td>
+      <td><span class="badge bg-secondary">${p.category}</span></td>
+      <td>${fmtXof(p.price_xof)}</td>
+      <td>${p.stock}</td>
+      <td>
+        <button class="btn btn-sm btn-primary" onclick="editProduct('${p.slug}')">✏️</button>
+        <button class="btn btn-sm btn-danger" onclick="confirmDelete('product', '${p.slug}', '${p.name_fr}')">🗑️</button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" class="text-center">Aucun produit</td></tr>';
+}
+
+async function editProduct(slug) {
+  try {
+    const product = await api(`/products/${slug}`);
+    $('#productSlug').value = product.slug;
+    $('#pNameFr').value = product.name_fr;
+    $('#pNameEn').value = product.name_en;
+    $('#pSlug').value = product.slug;
+    $('#pCategory').value = product.category;
+    $('#pDescFr').value = product.description_fr;
+    $('#pDescEn').value = product.description_en;
+    $('#pPrice').value = product.price_xof;
+    $('#pWeight').value = product.weight || '';
+    $('#pStock').value = product.stock || 100;
+    $('#pImage').value = product.image;
+    const preview = $('#imagePreview');
+    preview.src = product.image;
+    preview.classList.add('show');
+    $('#productModalTitle').textContent = `Édition: ${product.name_fr}`;
+    new bootstrap.Modal($('#productModal')).show();
+  } catch (err) { alert('Erreur: ' + err.message); }
+}
+
+function resetProductForm() {
+  $('#productForm').reset();
+  $('#productSlug').value = '';
+  $('#productModalTitle').textContent = 'Nouveau produit';
+  $('#imagePreview').classList.remove('show');
+  $('#imageFile').value = '';
+}
+
+// ✅ UPLOAD D'IMAGE DEPUIS LE PC
+$('#imageFile')?.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+  if (!allowed.includes(file.type)) {
+    alert('❌ Format non supporté. Utilisez JPG, PNG ou WEBP.');
+    e.target.value = '';
+    return;
+  }
+  
+  if (file.size > 5 * 1024 * 1024) {
+    alert('❌ Image trop lourde (max 5 Mo)');
+    e.target.value = '';
+    return;
+  }
+  
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const res = await fetch(`${API_BASE}/api/admin/upload-image`, {
+      method: 'POST',
+      credentials: 'include',
+      body: formData
+    });
+    
+    if (!res.ok) throw new Error('Échec upload');
+    
+    const data = await res.json();
+    $('#pImage').value = data.url;
+    $('#imagePreview').src = data.url;
+    $('#imagePreview').classList.add('show');
+    alert('✅ Image téléversée avec succès!');
+  } catch (err) {
+    alert('❌ Erreur upload: ' + err.message);
+  }
+});
+
+$('#productForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const payload = {
+    slug: $('#pSlug').value,
+    name_fr: $('#pNameFr').value,
+    name_en: $('#pNameEn').value,
+    description_fr: $('#pDescFr').value,
+    description_en: $('#pDescEn').value,
+    category: $('#pCategory').value,
+    price_xof: parseFloat($('#pPrice').value),
+    weight: $('#pWeight').value,
+    image: $('#pImage').value,
+    stock: parseInt($('#pStock').value) || 100,
+    benefits_fr: [], benefits_en: [], is_bestseller: false
+  };
+  
+  const slug = $('#productSlug').value;
+  if (slug) {
+    await api(`/products/${slug}`, { method: 'PUT', body: JSON.stringify(payload) });
+  } else {
+    await api('/products', { method: 'POST', body: JSON.stringify(payload) });
+  }
+  
+  bootstrap.Modal.getInstance($('#productModal')).hide();
+  alert('✅ Produit enregistré');
+  loadProducts();
+});
+
+async function loadReviews() {
+  const data = await api('/reviews');
+  $('#reviewsBody').innerHTML = data.map(r => `
+    <tr>
+      <td><strong>${r.name}</strong></td>
+      <td>${r.text}</td>
+      <td>${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</td>
+      <td><button class="btn btn-sm btn-danger" onclick="confirmDelete('review', '${r.id}', '${r.name}')">🗑️</button></td>
+    </tr>
+  `).join('') || '<tr><td colspan="4" class="text-center">Aucun avis</td></tr>';
+}
+
+function confirmDelete(type, id, label) {
+  $('#deleteMessage').textContent = `Supprimer ${type === 'product' ? 'le produit' : "l'avis"} "${label}" ?`;
+  deleteCallback = async () => {
+    await api(`/${type === 'product' ? 'products' : 'reviews'}/${id}`, { method: 'DELETE' });
+    alert('✅ Supprimé');
+    if (type === 'product') loadProducts(); else loadReviews();
+  };
+  new bootstrap.Modal($('#deleteModal')).show();
+}
+
+$('#deleteConfirm')?.addEventListener('click', async () => {
+  if (deleteCallback) await deleteCallback();
+  bootstrap.Modal.getInstance($('#deleteModal')).hide();
+});
+
+$('#loginForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  try {
+    await login($('#loginEmail').value, $('#loginPassword').value);
+    bootstrap.Modal.getInstance($('#loginModal')).hide();
+    updateUserInfo();
+    loadDashboard();
+  } catch (err) {
+    $('#loginError').textContent = err.message;
+    $('#loginError').classList.remove('d-none');
+  }
+});
+
+$('#logoutBtn')?.addEventListener('click', logout);
+
+document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection(link.dataset.section);
+  });
+});
+
+$('#orderStatusFilter')?.addEventListener('change', loadOrders);
+
+$('#configForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  await api('/admin/config', { method: 'PUT', body: JSON.stringify({ xof_to_eur_rate: parseFloat($('#xofEurRate').value) }) });
+  alert('✅ Enregistré');
+});
+
+$('#apiUrlForm')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  localStorage.setItem('apiBaseUrl', $('#apiUrl').value);
+  location.reload();
+});
+
+function updateUserInfo() {
+  if (!currentUser) return;
+  $('#userName').textContent = currentUser.name || 'Admin';
+  $('#userEmail').textContent = currentUser.email;
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', async () => {
+  const saved = localStorage.getItem('adminUser');
+  if (saved) {
+    currentUser = JSON.parse(saved);
+    try { await api('/auth/me'); } catch { logout(); }
+  }
+  if (!currentUser) {
+    new bootstrap.Modal($('#loginModal')).show();
+  } else {
+    updateUserInfo();
+    loadDashboard();
+  }
+});
+</script>
+</body>
+</html>
